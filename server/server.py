@@ -50,7 +50,7 @@ def create_group():
     param members: Array of member names (from request body)
     return: The created group object
     """
-    
+    # assunming that the members name can not unique
     # Getting the request body (DO NOT MODIFY)
     group_data = request.json
     group_name = group_data.get("groupName")
@@ -86,6 +86,9 @@ def create_group():
         if not name.isalpha():
             print(name)
             abort(400, "Invalid member name")
+        # edge case: check if the member name is over 20 characters
+        if len(name) > 20:
+            abort(400, "Member name is too long")
         # print(name)
         # Create a new student with incremented ID
         new_student_id = len(students) + 1
